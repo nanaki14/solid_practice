@@ -1,26 +1,32 @@
-import type { Component } from 'solid-js';
-
-import logo from './logo.svg';
-import styles from './App.module.css';
+import { Component, onMount } from 'solid-js';
+import { CounterProvider } from './components/Counter';
+import { DynamicComponent } from './components/DynamicComponent';
+import { Heading } from './components/Heading'
 
 const App: Component = () => {
+  let myDiv: any;
+
+  onMount(() => {
+    console.log('mountされた')
+    console.log(myDiv)
+  });
+
+
   return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
-    </div>
+    <CounterProvider count={1}>
+      <div
+        ref={myDiv}
+        style={{
+          'text-align': 'center'
+        }}
+      >
+        <Heading
+          title="こんにちはSolid"
+          text="これはいいものだ"
+        />
+        <DynamicComponent />
+      </div>
+    </CounterProvider>
   );
 };
 
